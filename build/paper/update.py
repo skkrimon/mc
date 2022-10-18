@@ -10,7 +10,7 @@ from tqdm import tqdm
 from yaspin import yaspin
 from pathlib import Path
 
-RESTART_TIME = 10
+RESTART_TIME = 60
 BASE_URL = 'https://api.papermc.io/v2'
 FILENAME = 'server.jar'
 SERVER_PATH = '../../server'
@@ -87,7 +87,7 @@ if __name__ == '__main__':
             build = get_latest_build(version)['build']
 
         if download_file is None:
-            download_file = get_latest_build(version)['downloads']['application']['name']
+            download_file = f'paper-{version}-{build}.jar'
 
         create_config()
 
