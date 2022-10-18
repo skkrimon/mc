@@ -115,10 +115,10 @@ if __name__ == '__main__':
         timestamp = time()
 
         os.system(f'mv {SERVER_PATH}/{FILENAME} {BACKUP_PATH}/{timestamp}_{FILENAME}')
-        print('Backed up old server.jar version')
+        print(f'Backed up old {FILENAME} version')
 
         os.system(f'mv {FILENAME} {SERVER_PATH}/{FILENAME}')
-        print('Installed new server.jar version')
+        print(f'Installed new {FILENAME} version')
 
         os.system(f'chown {USER}:{GROUP} {SERVER_PATH}/{FILENAME}')
 
