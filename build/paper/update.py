@@ -84,11 +84,13 @@ if __name__ == '__main__':
 
         timestamp = time()
 
-        print('Backed up old server.jar version')
         os.system(f'mv {SERVER_PATH}/{FILENAME} {BACKUP_PATH}/{timestamp}_{FILENAME}')
+        print('Backed up old server.jar version')
 
-        print('Installed new server.jar version')
         os.system(f'mv {FILENAME} {SERVER_PATH}/{FILENAME}')
+        print('Installed new server.jar version')
+
+        os.system(f'chown minecraft:minecraft {SERVER_PATH}/{FILENAME}')
 
         start_server()
 
