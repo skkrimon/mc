@@ -3,6 +3,7 @@
 import requests
 import os
 import configparser
+import ssl
 from argparse import ArgumentParser
 from urllib import request
 from time import sleep, time
@@ -68,6 +69,8 @@ def start_server():
 
 
 if __name__ == '__main__':
+    ssl._create_default_https_context = ssl._create_unverified_context
+
     try:
         parser = ArgumentParser()
         parser.add_argument('-v', '--version')
