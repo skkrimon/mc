@@ -2,5 +2,5 @@
 .DS_Store
 .idea
 build/paper/update.ini
-bin
+bin/*
 server/*
