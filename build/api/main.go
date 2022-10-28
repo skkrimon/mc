@@ -3,17 +3,15 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
+	"github.com/skkrimon/mc/api/routes"
+	"github.com/skkrimon/mc/api/util"
 	"log"
 	"net/http"
 	"os"
 )
 
 func main() {
-	envErr := godotenv.Load()
-	if envErr != nil {
-		log.Fatal("Error loading .env file")
-	}
+	util.LoadEnv()
 
 	port := os.Getenv("API_PORT")
 	ginMode := os.Getenv("GIN_MODE")
@@ -21,14 +19,17 @@ func main() {
 	gin.SetMode(ginMode)
 
 	r := gin.Default()
+	routes.PingRoutes(r)
+
 	proxyErr := r.SetTrustedProxies(nil)
 	if proxyErr != nil {
 		log.Fatal(proxyErr)
 	}
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"ping": "pong",
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status":  http.StatusNotFound,
+			"message": "not found",
 		})
 	})
 
