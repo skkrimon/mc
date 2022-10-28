@@ -8,10 +8,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/skkrimon/mctl/routes"
+	"github.com/skkrimon/mc/mctl/routes"
 )
 
-func main()  {
+func main() {
 	envErr := godotenv.Load()
 	if envErr != nil {
 		log.Fatal("Error loading .env file")

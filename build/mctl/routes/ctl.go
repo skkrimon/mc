@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/skkrimon/mctl/controller"
+	"github.com/skkrimon/mc/mctl/controller"
 )
 
 func CtlRoutes(r *gin.Engine) {
