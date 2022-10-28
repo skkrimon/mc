@@ -5,8 +5,8 @@ import (
 	"github.com/skkrimon/mc/api/controller"
 )
 
-func PingRoutes(r *gin.Engine) {
-	ping := r.Group("/ping")
+func PingRoutes(superRoute *gin.RouterGroup) {
+	ping := superRoute.Group("/ping")
 	{
 		pong := new(controller.PingController)
 		ping.GET("/", pong.Index)

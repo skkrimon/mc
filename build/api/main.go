@@ -7,33 +7,32 @@ import (
 	"github.com/skkrimon/mc/api/util"
 	"log"
 	"net/http"
-	"os"
 )
 
 func main() {
-	util.LoadEnv()
-
-	port := os.Getenv("API_PORT")
-	ginMode := os.Getenv("GIN_MODE")
+	port := util.GetEnv("API_PORT")
+	ginMode := util.GetEnv("GIN_MODE")
 
 	gin.SetMode(ginMode)
 
-	r := gin.Default()
-	routes.PingRoutes(r)
+	app := gin.Default()
 
-	proxyErr := r.SetTrustedProxies(nil)
+	router := app.Group("/api/v1")
+	routes.AddRoutes(router)
+
+	proxyErr := app.SetTrustedProxies(nil)
 	if proxyErr != nil {
 		log.Fatal(proxyErr)
 	}
 
-	r.NoRoute(func(c *gin.Context) {
+	app.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status":  http.StatusNotFound,
 			"message": "not found",
 		})
 	})
 
-	srvErr := r.Run(fmt.Sprintf(":%s", port))
+	srvErr := app.Run(fmt.Sprintf(":%s", port))
 	if srvErr != nil {
 		log.Fatal(srvErr)
 	}
