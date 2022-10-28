@@ -21,10 +21,12 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		if givenKey == "" {
 			respondWithError(c, http.StatusUnauthorized, "No API key given")
+			return
 		}
 
 		if givenKey != requiredKey {
 			respondWithError(c, http.StatusUnauthorized, "Invalid API key")
+			return
 		}
 
 		c.Next()
