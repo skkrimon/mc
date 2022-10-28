@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/skkrimon/mc/mctl/util"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -21,13 +20,6 @@ func main() {
 
 	r := gin.Default()
 	routes.CtlRoutes(r)
-
-	r.NoRoute(func(c *gin.Context) {
-		c.JSON(http.StatusNotFound, gin.H{
-			"status":  http.StatusNotFound,
-			"message": "not found",
-		})
-	})
 
 	proxyErr := r.SetTrustedProxies(nil)
 	if proxyErr != nil {

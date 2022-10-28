@@ -76,6 +76,5 @@ func handleSuccess(c *gin.Context, body io.Reader) {
 }
 
 func getBaseUrl() string {
-	baseUrl := util.GetEnv("MCTL_URL")
-	return fmt.Sprintf("%s/api/v1", baseUrl)
+	return util.GetEnv("MCTL_URL")
 }
