@@ -27,6 +27,7 @@ func main() {
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{
+			"status":  http.StatusNotFound,
 			"message": "not found",
 		})
 	})
