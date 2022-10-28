@@ -5,8 +5,8 @@ import (
 	"github.com/skkrimon/mctl/controller"
 )
 
-func CtlRoutes(r *gin.Engine)  {
-	ctl := r.Group("/ctl") 
+func CtlRoutes(r *gin.Engine) {
+	ctl := r.Group("/ctl")
 	{
 		start := new(controller.StartController)
 		ctl.POST("/start", start.Index)
@@ -16,5 +16,8 @@ func CtlRoutes(r *gin.Engine)  {
 
 		update := new(controller.UpdateController)
 		ctl.POST("update", update.Index)
+
+		restart := new(controller.RestartController)
+		ctl.POST("/restart", restart.Index)
 	}
 }
