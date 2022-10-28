@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/skkrimon/mc/api/middleware"
 	"github.com/skkrimon/mc/api/routes"
 	"github.com/skkrimon/mc/api/util"
 	"log"
@@ -16,6 +17,7 @@ func main() {
 	gin.SetMode(ginMode)
 
 	app := gin.Default()
+	app.Use(middleware.AuthMiddleware())
 
 	router := app.Group("/api/v1")
 	routes.AddRoutes(router)
