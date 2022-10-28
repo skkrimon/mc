@@ -22,9 +22,9 @@ func main() {
 	router := app.Group("/api/v1")
 	routes.AddRoutes(router)
 
-	proxyErr := app.SetTrustedProxies(nil)
-	if proxyErr != nil {
-		log.Fatal(proxyErr)
+	err := app.SetTrustedProxies(nil)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	app.NoRoute(func(c *gin.Context) {
@@ -34,8 +34,8 @@ func main() {
 		})
 	})
 
-	srvErr := app.Run(fmt.Sprintf(":%s", port))
-	if srvErr != nil {
-		log.Fatal(srvErr)
+	err = app.Run(fmt.Sprintf(":%s", port))
+	if err != nil {
+		log.Fatal(err)
 	}
 }

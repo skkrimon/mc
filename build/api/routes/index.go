@@ -4,4 +4,5 @@ import "github.com/gin-gonic/gin"
 
 func AddRoutes(superRoute *gin.RouterGroup) {
 	PingRoutes(superRoute)
+	MctlRoutes(superRoute)
 }

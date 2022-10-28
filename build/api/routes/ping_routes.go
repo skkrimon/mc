@@ -8,7 +8,8 @@ import (
 func PingRoutes(superRoute *gin.RouterGroup) {
 	ping := superRoute.Group("/ping")
 	{
-		pong := new(controller.PingController)
-		ping.GET("/", pong.Index)
+		c := new(controller.PingController)
+
+		ping.GET("/", c.Index)
 	}
 }
