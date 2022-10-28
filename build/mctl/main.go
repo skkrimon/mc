@@ -2,20 +2,17 @@ package main
 
 import (
 	"fmt"
+	"github.com/skkrimon/mc/mctl/util"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/skkrimon/mc/mctl/routes"
 )
 
 func main() {
-	envErr := godotenv.Load()
-	if envErr != nil {
-		log.Fatal("Error loading .env file")
-	}
+	util.LoadEnv()
 
 	port := os.Getenv("MCTL_PORT")
 	ginMode := os.Getenv("GIN_MODE")
@@ -32,7 +29,7 @@ func main() {
 		})
 	})
 
-	proxyErr := r.SetTrustedProxies([]string{"127.0.0.1"})
+	proxyErr := r.SetTrustedProxies(nil)
 	if proxyErr != nil {
 		log.Fatal(proxyErr)
 	}

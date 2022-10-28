@@ -5,3 +5,4 @@ build/paper/update.ini
 bin/*
 server/*
 !/bin/.env
+.env.local
