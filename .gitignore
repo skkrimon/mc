@@ -7,3 +7,4 @@ server/*
 !/bin/.env
 .env.local
 *.http
+*.conf
