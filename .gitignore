@@ -9,3 +9,4 @@ server/*
 *.http
 *.conf
 config.yml
+*.exe
