@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/skkrimon/mc/mctl/util"
 	"net/http"
-	"os"
 	"os/exec"
 )
 
@@ -47,11 +46,15 @@ func handleSuccess(c *gin.Context, message string) {
 }
 
 func updateServer() {
-	updatePath := os.Getenv("UPDATE_PATH")
+	var config util.ConfigYaml
+	err := config.LoadConfig()
+	if err != nil {
+		return
+	}
 
 	cmd := exec.Command("python3", "update")
-	cmd.Dir = updatePath
-	err := cmd.Run()
+	cmd.Dir = config.UpdatePath
+	err = cmd.Run()
 	if err != nil {
 		fmt.Println("Could not update server")
 	}
