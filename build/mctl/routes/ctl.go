@@ -8,16 +8,9 @@ import (
 func CtlRoutes(r *gin.Engine) {
 	ctl := r.Group("/ctl")
 	{
-		start := new(controller.StartController)
-		ctl.POST("/start", start.Index)
-
-		stop := new(controller.StopController)
-		ctl.POST("/stop", stop.Index)
-
-		update := new(controller.UpdateController)
-		ctl.POST("update", update.Index)
-
-		restart := new(controller.RestartController)
-		ctl.POST("/restart", restart.Index)
+		c := new(controller.CtlController)
+		ctl.POST("/start", c.Start)
+		ctl.POST("/stop", c.Stop)
+		ctl.POST("/update", c.Update)
 	}
 }
