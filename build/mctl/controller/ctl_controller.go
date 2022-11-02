@@ -11,7 +11,7 @@ import (
 type CtlController struct{}
 
 func (h *CtlController) Start(c *gin.Context) {
-	out, err := exec.Command("systemctl", "start", "minecraft").Output()
+	out, err := exec.Command("systemctl", "start", "minecraft@server").Output()
 
 	if err != nil {
 		util.ErrorResponse(c, err.Error())
@@ -22,7 +22,7 @@ func (h *CtlController) Start(c *gin.Context) {
 }
 
 func (h *CtlController) Stop(c *gin.Context) {
-	out, err := exec.Command("systemctl", "stop", "minecraft").Output()
+	out, err := exec.Command("systemctl", "stop", "minecraft@server").Output()
 
 	if err != nil {
 		util.ErrorResponse(c, err.Error())
