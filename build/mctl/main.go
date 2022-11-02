@@ -13,7 +13,7 @@ func main() {
 	var config util.ConfigYaml
 	err := config.LoadConfig()
 	if err != nil {
-		log.Fatal("Error loading config.yml")
+		log.Fatal(err)
 	}
 
 	gin.SetMode(config.GinMode)
