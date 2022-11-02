@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 	"github.com/skkrimon/mc/mctl/middleware"
 	"github.com/skkrimon/mc/mctl/routes"
@@ -28,8 +29,9 @@ func main() {
 		log.Fatal(proxyErr)
 	}
 
-	srvErr := r.Run(fmt.Sprintf(":%s", config.Port))
-	if srvErr != nil {
-		log.Fatal(srvErr)
+	if config.GinMode == "debug" {
+		log.Fatal(r.Run(fmt.Sprintf(":%s", config.Port)))
+	} else {
+		log.Fatal(autotls.Run(r, "og-in-nbg.de", "api.og-in-nbg.de"))
 	}
 }
