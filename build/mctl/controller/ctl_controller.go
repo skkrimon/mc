@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/skkrimon/mc/mctl/util"
 	"net/http"
 	"os"
 	"os/exec"
@@ -14,7 +15,7 @@ func (h *CtlController) Start(c *gin.Context) {
 	out, err := exec.Command("systemctl", "start", "minecraft").Output()
 
 	if err != nil {
-		handleError(c, err.Error())
+		util.ErrorResponse(c, err.Error())
 		return
 	}
 
@@ -25,7 +26,7 @@ func (h *CtlController) Stop(c *gin.Context) {
 	out, err := exec.Command("systemctl", "stop", "minecraft").Output()
 
 	if err != nil {
-		handleError(c, err.Error())
+		util.ErrorResponse(c, err.Error())
 		return
 	}
 
@@ -42,13 +43,6 @@ func handleSuccess(c *gin.Context, message string) {
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"message": message,
-	})
-}
-
-func handleError(c *gin.Context, error string) {
-	c.JSON(http.StatusInternalServerError, gin.H{
-		"success": false,
-		"message": error,
 	})
 }
 

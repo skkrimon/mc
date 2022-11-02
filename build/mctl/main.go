@@ -21,6 +21,7 @@ func main() {
 	r := gin.Default()
 	r.Use(middleware.AuthMiddleware())
 	routes.CtlRoutes(r)
+	routes.KeyRoutes(r)
 
 	proxyErr := r.SetTrustedProxies(nil)
 	if proxyErr != nil {
