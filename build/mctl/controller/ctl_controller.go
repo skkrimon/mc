@@ -11,7 +11,18 @@ import (
 type CtlController struct{}
 
 func (h *CtlController) Start(c *gin.Context) {
-	out, err := exec.Command("systemctl", "start", "minecraft@server").Output()
+	server := c.Param("server")
+	isValid := validateServer(server)
+
+	if !isValid {
+		c.JSON(http.StatusNotFound, gin.H{
+			"success": false,
+			"message": fmt.Sprintf("%s server not found", server),
+		})
+		return
+	}
+
+	out, err := exec.Command("systemctl", "start", fmt.Sprintf("minecraft@%s", server)).Output()
 
 	if err != nil {
 		util.ErrorResponse(c, err.Error())
@@ -22,7 +33,17 @@ func (h *CtlController) Start(c *gin.Context) {
 }
 
 func (h *CtlController) Stop(c *gin.Context) {
-	out, err := exec.Command("systemctl", "stop", "minecraft@server").Output()
+	server := c.Param("server")
+	out, err := exec.Command("systemctl", "stop", fmt.Sprintf("minecraft@%s", server)).Output()
+	isValid := validateServer(server)
+
+	if !isValid {
+		c.JSON(http.StatusNotFound, gin.H{
+			"success": false,
+			"message": fmt.Sprintf("%s server not found", server),
+		})
+		return
+	}
 
 	if err != nil {
 		util.ErrorResponse(c, err.Error())
@@ -58,4 +79,20 @@ func updateServer() {
 	if err != nil {
 		fmt.Println("Could not update server")
 	}
+}
+
+func validateServer(server string) bool {
+	var config util.ConfigYaml
+	err := config.LoadConfig()
+	if err != nil {
+		return false
+	}
+
+	for _, v := range config.Servers {
+		if v == server {
+			return true
+		}
+	}
+
+	return false
 }

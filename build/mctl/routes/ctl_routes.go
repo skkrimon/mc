@@ -9,8 +9,8 @@ func CtlRoutes(r *gin.Engine) {
 	ctl := r.Group("/ctl")
 	{
 		c := new(controller.CtlController)
-		ctl.POST("/start", c.Start)
-		ctl.POST("/stop", c.Stop)
+		ctl.POST("/start/:server", c.Start)
+		ctl.POST("/stop/:server", c.Stop)
 		ctl.POST("/update", c.Update)
 	}
 }

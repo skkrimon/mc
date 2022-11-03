@@ -7,9 +7,10 @@ import (
 )
 
 type ConfigYaml struct {
-	Port       string `yaml:"port"`
-	UpdatePath string `yaml:"update_path"`
-	GinMode    string `yaml:"gin_mode"`
+	Port       string   `yaml:"port"`
+	UpdatePath string   `yaml:"update_path"`
+	GinMode    string   `yaml:"gin_mode"`
+	Servers    []string `yaml:"servers"`
 	Users      []User
 }
 
