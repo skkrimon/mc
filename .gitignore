@@ -4,7 +4,8 @@
 build/paper/update.ini
 bin/*
 !/bin/.keep
-server/*
+paper/*
+vanilla/*
 .env.local
 *.http
 *.conf

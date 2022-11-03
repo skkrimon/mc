@@ -14,7 +14,7 @@ from pathlib import Path
 RESTART_TIME = 60
 BASE_URL = 'https://api.papermc.io/v2'
 FILENAME = 'server.jar'
-SERVER_PATH = '../../server'
+SERVER_PATH = '../../paper'
 BACKUP_PATH = '../../backup'
 START_SERVER_CMD = 'systemctl start minecraft@server'
 STOP_SERVER_CMD = 'systemctl stop minecraft@server'
