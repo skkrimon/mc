@@ -1,0 +1,261 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "MCTL API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.og-in-nbg.de/api/v1"
+    },
+    {
+      "url": "http://localhost:8080/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "key",
+      "description": "Manage Keys"
+    },
+    {
+      "name": "ctl",
+      "description": "Server Controls"
+    },
+    {
+      "name": "servers",
+      "description": "Manage Servers"
+    }
+  ],
+  "paths": {
+    "/key/generate": {
+      "post": {
+        "tags": [
+          "key"
+        ],
+        "summary": "Generates new API key",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateKeyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateKeyResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/ctl/start/{server}": {
+      "post": {
+        "tags": [
+          "ctl"
+        ],
+        "summary": "Start a server",
+        "operationId": "ctlStart",
+        "parameters": [
+          {
+            "name": "server",
+            "in": "path",
+            "description": "The name of the server",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/ctl/stop/{server}": {
+      "post": {
+        "tags": [
+          "ctl"
+        ],
+        "summary": "Stop a server",
+        "operationId": "ctlStop",
+        "parameters": [
+          {
+            "name": "server",
+            "in": "path",
+            "description": "The name of the server",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/ctl/update": {
+      "post": {
+        "tags": [
+          "ctl"
+        ],
+        "summary": "Update paper server",
+        "operationId": "ctlUpdate",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/servers": {
+      "get": {
+        "tags": [
+          "servers"
+        ],
+        "summary": "Returns existing servers",
+        "operationId": "serversGet",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetServersResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Server": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "vanilla"
+          },
+          "description": {
+            "type": "string",
+            "example": "A Vanilla Minecraft Server"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Server started"
+          },
+          "success": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "GenerateKeyRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "Testuser"
+          }
+        }
+      },
+      "GenerateKeyResponse": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "Testuser"
+          },
+          "api_key": {
+            "type": "string",
+            "example": "Abc1234567890"
+          }
+        }
+      },
+      "GetServersResponse": {
+        "type": "object",
+        "properties": {
+          "servers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Server"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "X-API-KEY",
+        "in": "header"
+      }
+    }
+  }
+}
