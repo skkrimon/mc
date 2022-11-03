@@ -1,12 +1,13 @@
-package routes
+package api_v1
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/skkrimon/mc/mctl/controller"
+	"github.com/skkrimon/mc/mctl/middleware"
 )
 
-func CtlRoutes(r *gin.Engine) {
-	ctl := r.Group("/ctl")
+func CtlRoutes(r *gin.RouterGroup) {
+	ctl := r.Group("/ctl", middleware.AuthMiddleware())
 	{
 		c := new(controller.CtlController)
 		ctl.POST("/start/:server", c.Start)

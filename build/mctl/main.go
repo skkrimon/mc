@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
-	"github.com/skkrimon/mc/mctl/middleware"
 	"github.com/skkrimon/mc/mctl/routes"
 	"github.com/skkrimon/mc/mctl/util"
 	"log"
@@ -20,10 +20,14 @@ func main() {
 	gin.SetMode(config.GinMode)
 
 	r := gin.Default()
-	r.Use(middleware.AuthMiddleware())
-	routes.CtlRoutes(r)
-	routes.KeyRoutes(r)
-	routes.ServerRoutes(r)
+	r.LoadHTMLGlob("./static/*.html")
+	r.Use(cors.New(util.CorsConfig()))
+
+	apiRoutes := r.Group("/api/v1")
+	staticRoutes := r.Group("/")
+
+	routes.AddApiV1Routes(apiRoutes)
+	routes.AddStaticRoutes(staticRoutes)
 
 	proxyErr := r.SetTrustedProxies(nil)
 	if proxyErr != nil {
