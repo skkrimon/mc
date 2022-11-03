@@ -2,23 +2,15 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/skkrimon/mc/mctl/models"
 	"github.com/skkrimon/mc/mctl/util"
 	"net/http"
 )
 
 type KeyController struct{}
 
-type GenerateRequest struct {
-	Username string `json:"username" binding:"required"`
-}
-
-type GenerateResponse struct {
-	Username string `json:"username"`
-	ApiKey   string `json:"api_key"`
-}
-
 func (h *KeyController) Generate(c *gin.Context) {
-	var req GenerateRequest
+	var req models.GenerateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"success": false,
@@ -51,7 +43,7 @@ func (h *KeyController) Generate(c *gin.Context) {
 		return
 	}
 
-	var res GenerateResponse
+	var res models.GenerateResponse
 	res.Username = req.Username
 	res.ApiKey = apiKey
 

@@ -89,7 +89,7 @@ func validateServer(server string) bool {
 	}
 
 	for _, v := range config.Servers {
-		if v == server {
+		if v.Name == server {
 			return true
 		}
 	}

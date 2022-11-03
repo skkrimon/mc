@@ -23,6 +23,7 @@ func main() {
 	r.Use(middleware.AuthMiddleware())
 	routes.CtlRoutes(r)
 	routes.KeyRoutes(r)
+	routes.ServerRoutes(r)
 
 	proxyErr := r.SetTrustedProxies(nil)
 	if proxyErr != nil {
