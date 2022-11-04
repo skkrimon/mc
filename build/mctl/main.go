@@ -34,9 +34,9 @@ func main() {
 		log.Fatal(proxyErr)
 	}
 
-	if config.GinMode == "debug" {
-		log.Fatal(r.Run(fmt.Sprintf(":%s", config.Port)))
-	} else {
+	if config.GinMode == "release" {
 		log.Fatal(autotls.Run(r, "og-in-nbg.de", "api.og-in-nbg.de"))
+	} else {
+		log.Fatal(r.Run(fmt.Sprintf(":%s", config.Port)))
 	}
 }
