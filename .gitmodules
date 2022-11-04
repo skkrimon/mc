@@ -1,3 +1,6 @@
 [submodule "build/client/mcrcon"]
 	path = build/client/mcrcon
 	url = https://github.com/Tiiffi/mcrcon.git
+[submodule "build/mctl"]
+	path = build/mctl
+	url = https://github.com/skkrimon/mctl.git
